@@ -141,7 +141,8 @@ class LoginScreen extends React.Component {
                         elevation: 0,
                         shadowOpacity: 0,
                     }} />
-                <Image source={logo} style={[styles.imageLogo]} />
+                {/* <Image source={logo} style={[styles.imageLogo]} /> */}
+                <Text style={[styles.bold, { color: 'white', fontSize: 80}]}>{`CRD FORM`}</Text>
                 <View style={[styles.shadow, styles.inputWithIcon]}>
                     <Icon name="user" color={primaryColor} size={26} />
                     <TextInput style={[styles.inputContainer]}

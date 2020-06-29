@@ -295,7 +295,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    indicatorControll
+    indicatorControll,
+    userInfoControll
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListScreen3)
