@@ -32,8 +32,10 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 class LoginScreen extends React.Component {
 
     state = {
-        username: 'A03715',
-        password: '03715'
+        // username: 'A03715',
+        // password: '03715'
+        username: '',
+        password: ''
     }
 
     onLogin() {
