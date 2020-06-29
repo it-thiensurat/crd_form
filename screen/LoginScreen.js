@@ -174,7 +174,7 @@ class LoginScreen extends React.Component {
                     <Text style={[styles.bold, styles.text26, { color: secondaryColor }]}>{`Sign in`}</Text>
                 </TouchableOpacity>
                 <View style={styles.marginBetweenVertical}></View>
-                <View style={[styles.containerRow, { width: DEVICE_WIDTH - 40, justifyContent: 'space-between' }]}>
+                {/* <View style={[styles.containerRow, { width: DEVICE_WIDTH - 40, justifyContent: 'space-between' }]}>
                     <TouchableOpacity style={{ alignSelf: 'flex-start', padding: 4 }}
                         onPress={
                             () => this.signup()
@@ -187,7 +187,7 @@ class LoginScreen extends React.Component {
                         }>
                         <Text style={[styles.text20, { color: secondaryColor }]}>{`forget password ?`}</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
             </View>
         )
     }

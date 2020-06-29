@@ -55,14 +55,14 @@ class SavedataScreen extends React.Component {
         activityId: '',
         actList: [{ ActID: -1, ActName: 'เลือก' }],
         searchTerm: '',
-        selectDate:"",
-        isDatePickerVisible:false,
-        remark:"",
+        selectDate: "",
+        isDatePickerVisible: false,
+        remark: "",
 
-        AccNo:this.props.route.params.AccNo,
-        RefNo:this.props.route.params.RefNo,
-        f_id:this.props.route.params.f_id,
-        assign_id:this.props.route.params.assign_id
+        AccNo: this.props.route.params.AccNo,
+        RefNo: this.props.route.params.RefNo,
+        f_id: this.props.route.params.f_id,
+        assign_id: this.props.route.params.assign_id
 
 
     }
@@ -86,7 +86,7 @@ class SavedataScreen extends React.Component {
     }
 
     async onSelectDropdown(value) {
-        this.setState({ activityId: value ,selectDate:""})
+        this.setState({ activityId: value, selectDate: "" })
 
     }
 
@@ -120,21 +120,16 @@ class SavedataScreen extends React.Component {
 
     ComponentRight = () => {
         return (
-            <View>
-                <TouchableOpacity style={{ padding: 8 }}
-                    onPress={
-                        () => this.props.navigation.push('Profile')
-                        //  that.props.navigation.replace('List'), this.props.navigation.push('Profile')
-
-                    }>
-                    {/* <Icon name="user" color={secondaryColor} size={20} /> */}
-                </TouchableOpacity>
+            <View style={{ margin: 8 }}>
             </View>
         );
     }
 
     handleBack = () => {
-        return false
+        if (this.props.navigation.isFocused()) {
+            this.props.navigation.pop();
+            return true;
+        }
     }
 
     componentWillUnmount() {
@@ -164,63 +159,40 @@ class SavedataScreen extends React.Component {
 
 
     onClick_savedata() {
-     //   console.log('onpress');
-     //   alert(this.state.AccNo+" "+this.state.RefNo+" "+this.state.f_id+" "+this.state.assign_id);
-//this.state.activityId+" "+this.state.selectDate+" "+this.state.remark+" "+
+        let that = this
+        const props = that.props
+        let userInfo = props.reducer.userInfo[0]
+        let formData = new FormData();
+        formData.append('contno', this.state.AccNo);
+        formData.append('refno', this.state.RefNo);
+        formData.append('fid', this.state.f_id);
+        formData.append('assignid', this.state.assign_id);
 
+        formData.append('activity', this.state.activityId);
+        formData.append('adddate:', this.state.selectDate);
+        formData.append('remark', this.state.remark);
+        formData.append('empid', userInfo.UsrName);
 
-
-            let that = this
-            const props = that.props
-            let userInfo = props.reducer.userInfo[0]
-            let formData = new FormData();
-            formData.append('contno', this.state.AccNo);
-            formData.append('refno', this.state.RefNo);
-            formData.append('fid',  this.state.f_id);
-            formData.append('assignid', this.state.assign_id);
-
-            formData.append('activity', this.state.activityId);
-            formData.append('adddate:', this.state.selectDate);
-            formData.append('remark', this.state.remark);
-            formData.append('empid',userInfo.UsrName);
-
-            Helper.post(BASEURL + Savedata, formData, '', (results) => {
-                if (results.status == 'SUCCESS') {
-           
-                    alert(`${results.message}`)
-
-                } else {
-                    alert(`${results.message}`)
-                }
-            })
-
-
-
+        Helper.post(BASEURL + Savedata, formData, '', (results) => {
+            if (results.status == 'SUCCESS') {
+                alert(`${results.message}`)
+            } else {
+                alert(`${results.message}`)
+            }
+        })
     }
-    dialogdate() {
-        console.log('onpress');
-        alert("1")
-
-    }
-
-
-
-
-
+    
     showDatePicker = () => {
         setDatePickerVisibility(true);
     };
 
     handleConfirm = (date) => {
         // hideDatePicker();
-        this.setState({selectDate: moment(date).format('L').split("/").reverse().join("-"),
-        isDatePickerVisible:false})
+        this.setState({
+            selectDate: moment(date).format('L').split("/").reverse().join("-"),
+            isDatePickerVisible: false
+        })
     };
-
-
-
-
-
 
     render() {
 
@@ -261,80 +233,40 @@ class SavedataScreen extends React.Component {
                             }
                         </Picker>
                     </View>
-
-
-
-
-
                     {
                         this.state.activityId == '2' ?
-                        <View style={[styles.inputWithIcon, styles.shadow, styles.center, { margin: 10, alignSelf: 'center' }]}>
-
-                        <View style={[styles.containerRow]}>
-                            <TouchableOpacity onPress={() => this.setState({isDatePickerVisible:true})}>
-
-                                <Icon style={{ backgroundColor: darkColor }} name="calendar" color={secondaryColor} size={20} />
-
-                            </TouchableOpacity>
-
-                            <View style={{ flex: 0.75, justifyContent: 'center', paddingLeft: 20 }}>
-
-                                <Text style={{ fontSize: 18 }}>{`${this.state.selectDate}`}</Text>
-
+                            <View style={[styles.inputWithIcon, styles.shadow, styles.center, { margin: 10, alignSelf: 'center' }]}>
+                                <View style={[styles.containerRow, { alignItems: 'center' }]}>
+                                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                                        <Text style={{ fontSize: 18 }}>{`${this.state.selectDate}`}</Text>
+                                    </View>
+                                    <TouchableOpacity style={{ marginRight: 15 }} onPress={() => this.setState({ isDatePickerVisible: true })}>
+                                        <Icon name="calendar" color={darkColor} size={18} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-
-                        </View>
-
-                    </View>
-
                             :
                             null
                     }
-
-
-
-                    
-
-
-
-
-
-
-
-
-
-                    <View style={{ flexDirection: 'column', flex: 0.3, marginTop: 10, padding: 10, marginBottom: 20 }}>
-
+                    <View style={{ marginTop: 10, padding: 10, marginBottom: 20 }}>
                         <TextInput style={{ height: 200, borderWidth: 1, borderColor: "gray", textAlignVertical: "top" }}
-                        onChangeText={(SSS)=>this.setState({remark:SSS})}>
-
-
+                            onChangeText={(SSS) => this.setState({ remark: SSS })}>
                         </TextInput>
-
-
                     </View>
-
-
-
-                    <View style={{ flexDirection: 'column', flex: 0.3, marginTop: 30, padding: 10 }}>
-
-                        <Button style={{ backgroundColor: darkColor }}
-                            textStyle={{ fontSize: 18, color: "white" }}
-                            onPress={() => this.onClick_savedata()}>
-                            บันทึก
-                      </Button>
-
-
-
+                    <View style={{ position: 'absolute', bottom: 15, width: '100%', alignItems: 'center' }}>
+                        <TouchableOpacity style={[styles.mainButton, styles.center]}
+                            onPress={
+                                () => this.onClick_savedata()
+                            }>
+                            <Text style={[styles.text20, { color: secondaryColor }]}>{`บันทึก`}</Text>
+                        </TouchableOpacity>
                     </View>
-
                 </View>
-                {/* <Button title="Show Date Picker" onPress={showDatePicker} /> */}
                 <DateTimePickerModal
                     isVisible={this.state.isDatePickerVisible}
                     mode="date"
                     onConfirm={this.handleConfirm}
-                    onCancel={() => this.setState({isDatePickerVisible:false})}
+                    onCancel={() => this.setState({ isDatePickerVisible: false })}
                 />
             </View>
         )

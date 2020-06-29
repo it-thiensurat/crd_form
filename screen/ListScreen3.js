@@ -129,13 +129,7 @@ class ListScreen3 extends React.Component {
 
     ComponentLeft = () => {
         return (
-            <View>
-                <TouchableOpacity style={{ padding: 8 }}
-                    onPress={
-                        () => this.handleBack()
-                    }>
-                    {/* <Icon name='chevron-left' color={secondaryColor} size={20} /> */}
-                </TouchableOpacity>
+            <View style={{ margin: 8 }}>
             </View>
         );
     }
@@ -152,12 +146,14 @@ class ListScreen3 extends React.Component {
         return (
             <View>
                 <TouchableOpacity style={{ padding: 8 }}
-                    onPress={
-                        () => this.props.navigation.push('Profile')
-                        //  that.props.navigation.replace('List'), this.props.navigation.push('Profile')
-                       
-                    }>
-                    {<Icon name="user" color={secondaryColor} size={20} /> }
+                    onPress={() => {
+                        let that = this
+                        const props = that.props
+                        StorageService.clear()
+                        props.userInfoControll('clear', "")
+                        props.navigation.replace('Login')
+                    }}>
+                    <Icon name='power-off' color={secondaryColor} size={20} />
                 </TouchableOpacity>
             </View>
         );
@@ -184,32 +180,28 @@ class ListScreen3 extends React.Component {
     }
 
     onClickItem2(AccNo, RefNo, f_id, assign_id) {
-        // alert("bbbb")
-
         this.props.navigation.push("SavedataScreen", { // navigate 
             'AccNo': AccNo,
             'RefNo': RefNo,
             'f_id': f_id,
             'assign_id': assign_id
-
-
         })
     }
 
-
-
     renderItem = ({ item, index }) => {
         return (
-            <View key={index} style={[styles.shadow, styles.backgrounSecondary, { padding: 10, width: DEVICE_WIDTH - 10, margin: 3, alignSelf: 'center', borderRadius: 6 }]}>
-                <View style={[styles.container, styles.containerRow]}>
+            <View key={index} style={[styles.shadow, styles.backgrounSecondary, { padding: 5, width: DEVICE_WIDTH - 10, margin: 3, alignSelf: 'center', borderRadius: 6 }]}>
+                <View style={[styles.container, styles.containerRow, { alignItems: 'center' }]}>
                     <TouchableOpacity onPress={() => this.onClickItem(item.map_img)}>
                         <Image
                             style={{ width: 100, height: 100 }}
                             resizeMode="contain"
-                            source={{ uri: item.map_img }}
-                        />
+                            source={{ uri: item.map_img == null || item.map_img == '' ? 'http://thiensurat.com/fileshare01/no_image.png' : item.map_img }} />
                     </TouchableOpacity>
-                    <TouchableOpacity setOpacityTo={0} onPress={() => this.onClickItem2(item.AccNo, item.RefNo, item.f_id, item.assign_id)}>
+                    <TouchableOpacity
+                        style={{ paddingLeft: 5 }}
+                        setOpacityTo={0}
+                        onPress={() => this.onClickItem2(item.AccNo, item.RefNo, item.f_id, item.assign_id)}>
                         <View style={{ flex: 0.75, justifyContent: 'center' }}>
                             <Text style={{ fontSize: 18 }}>{`${"สัญญา : " + item.AccNo + " อ้างอิง : " + item.RefNo}`}</Text>
                             <View style={styles.marginBetweenVertical}></View>
@@ -272,9 +264,6 @@ class ListScreen3 extends React.Component {
                             }
                         </Picker>
                     </View>
-
-
-
                     <View style={[styles.inputWithIcon, styles.shadow, styles.center, { margin: 10, alignSelf: 'center' }]}>
 
                         <SearchInput
@@ -283,15 +272,12 @@ class ListScreen3 extends React.Component {
                             placeholder="ค้นหา"
                         />
                     </View>
-
-
-
-
                     {
                         this.state.activity != '' ?
                             <FlatList
                                 initialNumToRender={10}
                                 data={filtered}
+                                keyExtractor={(item) => item.AccNo}
                                 renderItem={this.renderItem} />
                             :
                             <View style={[styles.container, styles.center]}>

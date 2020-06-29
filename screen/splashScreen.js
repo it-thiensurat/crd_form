@@ -74,9 +74,9 @@ class splashScreen extends React.Component {
                         shadowOpacity: 0,
                     }} />
                 <View style={[styles.container, styles.center]}>
-                    <Image source={logo2} style={[styles.imageLogo]} />
+                    {/* <Image source={logo2} style={[styles.imageLogo]} /> */}
                     <View>
-                        <Text style={{ color: primaryColor, textAlign: 'center' }}>{`Enter youre e-mail address we'll send you\na link to reset you password`}</Text>
+                        {/* <Text style={{ color: primaryColor, textAlign: 'center' }}>{`Enter youre e-mail address we'll send you\na link to reset you password`}</Text> */}
                     </View>
                     <View style={styles.marginBetweenVertical}></View>
 
