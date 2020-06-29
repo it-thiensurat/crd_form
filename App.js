@@ -47,13 +47,15 @@ setCustomTextInput(customTextProps);
 import Login from './screen/LoginScreen'
 import Signup from './screen/SignupScreen'
 import Forget from './screen/ForgetpasswordScreen'
-import List from './screen/ListScreen'
-import List2 from './screen/ListScreen2'
+
+import List3 from './screen/ListScreen3'
 import Profile from './screen/ProfileScreen'
 import splashScreen from './screen/splashScreen'
 import Calls from './screen/Calls'
 import Calls2 from './screen/Calls2'
 import ListScreen_json from './screen/ListScreen_json'
+import FullimageScreen from './screen/FullimageScreen'
+import SavedataScreen from './screen/SavedataScreen'
 
 
 const Stack = createStackNavigator();
@@ -66,11 +68,14 @@ function MyStack() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Forget" component={Forget} />
-      <Stack.Screen name="List" component={List} />
-      <Stack.Screen name="List2" component={List2} />
+
+      <Stack.Screen name="List3" component={List3} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Calls" component={Calls} />
       <Stack.Screen name="Calls2" component={Calls2} />
+      <Stack.Screen name="FullimageScreen" component={FullimageScreen} />
+      <Stack.Screen name="SavedataScreen" component={SavedataScreen} />
+      
       <Stack.Screen name="ListScreen_json" component={ListScreen_json} />
     </Stack.Navigator>
   );

@@ -35,7 +35,7 @@ class splashScreen extends React.Component {
                 if (obj !== null) {
                     let info = JSON.parse(obj)
                     props.userInfoControll('save', info)
-                    that.props.navigation.replace('List2')
+                    that.props.navigation.replace('List3')
     
                 } else {
                     that.props.navigation.replace('Login')

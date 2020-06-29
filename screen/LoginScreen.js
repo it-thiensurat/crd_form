@@ -61,7 +61,7 @@ class LoginScreen extends React.Component {
                 StorageService.set(USERINFO_KEY, JSON.stringify(results.data))
                 props.userInfoControll('save', results.data)
                 props.indicatorControll(false)
-                props.navigation.replace('List')
+                props.navigation.replace('List3')
             } else {
                 props.indicatorControll(false)
                 alert(`${results.message}`)

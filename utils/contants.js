@@ -23,7 +23,10 @@ export const BASEURL     = 'https://toss.thiensurat.co.th/'
 export const LOGINURL    = 'ServicesPHP/UAT/CRD/Authen'
 export const GETACTIVITY   = 'ServicesPHP/UAT/CRD/GetActivity'
 export const GetList   = 'ServicesPHP/UAT/CRD/GetList'
+export const Savedata   = 'ServicesPHP/UAT/CRD/AddProcess'
+
 
 
 
 export const USERINFO_KEY     = 'USERINFO_KEY'
+
